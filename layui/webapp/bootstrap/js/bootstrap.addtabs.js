@@ -50,7 +50,6 @@ $.fn.addtabs = function (options) {
     //关闭自身
     obj.on('click', 'ul.rightMenu a[data-right=remove]', function () {
         var id = $(this).parent("ul").attr("aria-controls");
-        alert(id);
         Addtabs.close(id);
         Addtabs.drop();
         $('#popMenu').fadeOut();
@@ -169,6 +168,7 @@ window.Addtabs = {
                     'id' : id + '_f'
                 })
             );
+            window.Addtabs.resizeframe();
         } else {
             $.get(opts.url, function (data) {
                 content.append(data);
@@ -275,5 +275,10 @@ window.Addtabs = {
         } else {
             dropdown.addClass('hide');
         }
+    },
+    resizeframe : function(){
+    	Addtabs.options.iframeHeight = $(window).height() - 175; //title100 + 底部35计算内容高度
+        obj.find('iframe').css('height', Addtabs.options.iframeHeight );
+        Addtabs.drop();
     }
 }
