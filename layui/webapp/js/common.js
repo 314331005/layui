@@ -3,21 +3,41 @@
  * 2016-11-20
  */
 
+//最顶层window
+var topwindow = window.top.window;
+
+$(function($) {
+	
+	//绑定按钮打开tab页面
+	$('button[data-addtab]').on("click", function(){
+		$.tabPanel.open($(this));
+	});
+});
 /**
- * 首页布局自动调整
+ * 主页窗口高度自动调整，不包含tab iframe调整，iframe调整在tab插件里面自动调整
  */
 function reWinSize(){
-	var h = $(window).height() - 133; //title100 + 底部35计算内容高度
+	var h = $(window).height() - 133; //title100 + 底部33计算内容高度
 	$("#mainContent").css({"height" : h});
-	$("#home").css({"height" : h-42, "overflow":"auto"});
+	$("#home").css({"height" : h-42, "overflow":"auto"});//42代表tab标签高度
 }
 
 /**
  * 模态对话框
  */
 (function($){
-//
-$.dialog = {	
+	/**
+	 * 模态对话框
+	 */
+$.dialog = {
+	/**
+	 * 模态对话框
+	 * @param {String} url 
+	 * @param {String} title 标题
+	 * @param {String} id 窗口id
+	 * @param {String} data 提交参数
+	 * @param {String} model 是否模态
+	 */
 	open : function(url, title, id , data, model){
 		htmlhead = '<div class="modal fade" id="'+id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">'
 					+'<div class="modal-dialog">'
@@ -33,7 +53,7 @@ $.dialog = {
 			   type: "POST",
 			   url: url,
 			   dataType: "html",
-			   data: "",
+			   data: data,
 			   success: function(msg){
 			   		$('body').append( htmlhead + msg +htmlend);
 			   		$('#' + id).modal('show');
@@ -63,7 +83,16 @@ $.dialog = {
 		callback(param);
 	}
 }
+/**
+ * 提示信息
+ */
 $.message = {
+	/**
+	 * 提示信息
+	 * @param {String} msg 信息内容 
+	 * @param {boolean} modal 是否模态
+	 * @param {int} time 停留时间毫秒
+	 */
 	msg : function(msg, modal, time){
 		var model = true;
 		var time = 1000;
@@ -80,6 +109,34 @@ $.message = {
 		});
 	}
 }
+/**
+ * 主页面调用bootstrap.addtabs.js对象
+ */
+$.tabPanel = {
+	open : function (obj){
+		topwindow.Addtabs.add({
+            id: $(obj).attr('data-addtab'),
+            title: $(obj).attr('title') ? $(obj).attr('title') : $(obj).html(),
+            content: topwindow.Addtabs.options.content ? topwindow.Addtabs.options.content : $(obj).attr('content'),
+            iframeHeight: topwindow.iframeHeight,
+            url: $(obj).attr('url'),
+            ajax: false
+        });
+	},
+	openJs : function (url, id, title){
+		topwindow.Addtabs.add({
+            id: id,
+            title: title,
+            content: topwindow.Addtabs.options.content ? topwindow.Addtabs.options.content : '',
+            iframeHeight: topwindow.iframeHeight,
+            url: url,
+            ajax: false
+        });
+	},
+	close : function (id){
+		topwindow.Addtabs.close(id);
+	}
+}
 })(jQuery);
 
 /**
@@ -88,9 +145,10 @@ $.message = {
  * @param {function} callback
  * @param {String} confirmMsg 提示确认信息
  * @param {boolean} isClose 执行完关闭
- * * @param {boolean} tid 刷新父窗口
+ * @param {boolean} tid 刷新父窗口
+ * @param {String} type 2 ：tab窗口
  */
-function submitCallback(form, callback, confirmMsg, isClose, tid) {
+function submitCallback(form, callback, confirmMsg, isClose, tid, type) {
 	
 	var $form = $(form);	
 	var _submitFn = function(){
@@ -105,28 +163,50 @@ function submitCallback(form, callback, confirmMsg, isClose, tid) {
 				if (typeof(callback) != "undefined") {
 					 callback(msg);
 				}
-				if (typeof(isClose) != "undefined") {
-					if(isClose && msg.statusCode == 200){
-				    	var id = $form.parents('div[class="modal fade in"]').attr("id");
-				    	$('#'+id).modal('hide');
-				    	$('#'+id).remove();//删除窗口防止缓存
-				    }
-				}
+				
 				if (typeof(confirmMsg) != "undefined") {
 					if (confirmMsg) {
 				    	$.message.msg(msg.message);
 				    }
 				}
 				if (typeof(tid) != "undefined") {
-					$(window.top.window.document.getElementById('tab_'+ tid + '_f')).contents().find('body .searchPanel form').submit();
-				}  			
+					//查找tab下iframe的searchpanel面板的form表单并提交
+					$(topwindow.document.getElementById('tab_'+ tid + '_f')).contents().find('body .searchPanel form').submit();
+				}
+				if (typeof(isClose) != "undefined") {
+					if(isClose && msg.statusCode == 200){
+						if(type == '2'){
+							//关闭当前tab页面
+							var tabid = $('#tabs', topwindow.document).find('li.active a').attr('aria-controls');//取得当前活动tab
+							$.tabPanel.close(tabid);
+							
+						}else{
+							//关闭模态窗口
+							var id = $form.parent('div[class="modal fade in"]').attr('id');
+					    	$.dialog.colse(id)
+						}
+				    	
+				    }
+				}
 			}
 		});
 	}
 	_submitFn();
 	return false;
 }
-
+/**
+ * tab页面普通ajax表单提交
+ * @param {Object} form
+ * @param {function} callback
+ * @param {String} confirmMsg 提示确认信息
+ * @param {boolean} isClose 执行完关闭
+ * * @param {boolean} tid 刷新父窗口
+ */
+function submitTabCallback(form, callback, confirmMsg, isClose, tid) {
+	
+	submitCallback(form, callback, confirmMsg, isClose, tid, 2);
+	return false;
+}
 /**
  * 扩展String方法
  */

@@ -2,13 +2,12 @@ package com.tgb.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.nutz.lang.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,20 +44,23 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/edit")
-	public String toAddUser(HttpServletRequest request, String tid){
+	public String toAddUser(HttpServletRequest request, String tid, String type){
 		System.out.println(tid);
 		request.setAttribute("tid", tid);
+		if(Strings.isNotBlank(type) && type.equals("2")){
+			return "/user-edit-tab";
+		}
 		return "/user-edit";
 	}
 	/**
-	 * 添加用户并重定向
+	 * 添加用户
 	 * @param user
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/addUser")
 	@ResponseBody 
-	public Object addUser(User user,HttpServletRequest request){
+	public Object addUser(User user, HttpServletRequest request){
 		userService.save(user);
 		return ReturnUtils.success("操作成功");
 	}

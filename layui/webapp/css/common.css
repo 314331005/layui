@@ -3,7 +3,7 @@ body {
 	font-size: 14px;
 	margin: 0;
 }
-
+ /*查询面板*/
 .searchPanel{
 	padding:  2px 5px;
 	padding-top: 5px;
@@ -19,6 +19,7 @@ body {
 	width: 150px;
 	margin-right: 15px;
 }
+ /*工具栏*/
 .toolsBar{
 	padding:  2px 5px;
 }
@@ -31,7 +32,7 @@ body {
 .toolsBar .panel-body button{
 	padding: 3px 10px;
 }
-
+ /*数据表格*/
 .dataTablePanle{
 	padding:  2px 5px;	
 }
@@ -50,7 +51,7 @@ body {
 .dataTable .no{
 	width: 50px;
 }
-
+ /*分页*/
 .pageBar{
 	padding:  2px 5px;
 }
@@ -63,4 +64,13 @@ body {
 }
 .pageBar .panel-body ul{
 	margin: 0px;
+}
+ 
+ /*tab 表单页面*/
+.tabfooter{
+	padding-top: 15px;
+	text-align: right;
+}
+.tabfooter button{
+	margin-right: 15px;
 }

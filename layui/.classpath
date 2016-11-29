@@ -40,5 +40,10 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jackson-annotations-2.2.1.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jackson-core-2.2.1.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jackson-databind-2.2.1.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/nutz-1.r.57.r3.jar" sourcepath="D:/javawork/插件/nutz1.r.57/nutz-1.r.57.r3-sources.jar">
+		<attributes>
+			<attribute name="source_encoding" value="UTF-8"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>

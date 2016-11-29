@@ -50,6 +50,7 @@ $.fn.addtabs = function (options) {
     //关闭自身
     obj.on('click', 'ul.rightMenu a[data-right=remove]', function () {
         var id = $(this).parent("ul").attr("aria-controls");
+        alert(id);
         Addtabs.close(id);
         Addtabs.drop();
         $('#popMenu').fadeOut();
