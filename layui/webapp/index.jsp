@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div class="logoright">
   	
 		<div class="btn-group">
-		  <button type="button" class="btn btn-default"  data-addtab="userMenu0" url=" ?tid=userMenu0">桌面</button>
+		  <button type="button" class="btn btn-default">桌面</button>
 		  <button type="button" class="btn btn-default">个人中心</button>
 		
 		  <div class="btn-group">
