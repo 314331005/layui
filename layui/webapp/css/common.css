@@ -1,0 +1,66 @@
+body {
+	font-family: Verdana;
+	font-size: 14px;
+	margin: 0;
+}
+
+.searchPanel{
+	padding:  2px 5px;
+	padding-top: 5px;
+}
+.searchPanel .panel-default{
+	margin-bottom: 0px;	
+}
+.searchPanel .panel-default .panel-heading{
+	padding: 3px 15px;
+}
+.searchPanel .panel-default .panel-body input{
+	display: inline;
+	width: 150px;
+	margin-right: 15px;
+}
+.toolsBar{
+	padding:  2px 5px;
+}
+.toolsBar .panel-default{
+	margin-bottom: 0px;	
+}
+.toolsBar .panel-default .panel-body{
+	padding: 3px;	
+}
+.toolsBar .panel-body button{
+	padding: 3px 10px;
+}
+
+.dataTablePanle{
+	padding:  2px 5px;	
+}
+.dataTablePanle .panel-default{
+	margin-bottom: 0px;	
+}
+.dataTablePanle .panel-default .panel-body{
+	padding: 5px;
+}
+.dataTable{
+	margin-bottom: 0px;	
+}
+.dataTable tr td a{
+	padding: 0px 6px;	
+}
+.dataTable .no{
+	width: 50px;
+}
+
+.pageBar{
+	padding:  2px 5px;
+}
+.pageBar .panel-default{
+	border-width: 0px;
+}
+.pageBar .panel-body{
+	padding: 1px;
+	text-align: right;
+}
+.pageBar .panel-body ul{
+	margin: 0px;
+}
