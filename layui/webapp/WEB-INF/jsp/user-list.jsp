@@ -31,9 +31,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <div class="col-md-12 toolsBar">
 		  <div class="panel panel-default">
 			  <div class="panel-body">
-			  	<button id="addUser" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>添加</button>
+			  	<button id="addUserJs" type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus"></span>添加js</button>
+			  	<button id="addUser" type="button" class="btn btn-primary" data-dialog="addUserDialog" title="添加用户" url="/layui/user/edit?tid=${tid}" data=""><span class="glyphicon glyphicon-plus"></span>添加</button>
 			  	<button type="button" class="btn btn-primary" data-addtab="tabUserAdd" url="user/edit?type=2&tid=${tid}"><span class="glyphicon glyphicon-plus"></span>TAB添加</button>
-			  	<button id="addUserJs" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>jsTAB添加</button>
+			  	<button id="addUserTabJs" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>jsTAB添加</button>
 			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>编辑</button>
 			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span>删除</button>
 			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span>禁用</button>
@@ -89,10 +90,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>  
 </div>
 <script type="text/javascript">
-$("#addUser").on("click", function(){
-	$.dialog.open('/layui/user/edit?tid=${tid}', '添加用户', 'userEditPanel', '', true);
-});
 $("#addUserJs").on("click", function(){
+	$.dialog.open('/layui/user/edit?tid=${tid}', '添加用户', 'userEditPanel');
+});
+$("#addUserTabJs").on("click", function(){
 	$.tabPanel.openJs('/layui/user/edit?type=2&tid=${tid}', '132132132', '添加用户');
 });
 </script>

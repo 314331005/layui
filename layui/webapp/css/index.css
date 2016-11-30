@@ -166,3 +166,6 @@ body {
 .homePanel .panel-body{
 	padding: 5px;
 }
+.homePanel .panel-body .table{
+	margin-bottom: 5px;
+}

@@ -8,9 +8,13 @@ var topwindow = window.top.window;
 
 $(function($) {
 	
-	//绑定按钮打开tab页面
+	//绑定按钮方式打开tab页面
 	$('button[data-addtab]').on("click", function(){
 		$.tabPanel.open($(this));
+	});
+	//绑定按钮方式打开模态窗口页面
+	$('button[data-dialog]').on("click", function(){
+		$.dialog.open($(this).attr('url'), $(this).attr('title'), $(this).attr('data-dialog'), $(this).attr('data'), $(this).attr('model'));
 	});
 });
 /**
