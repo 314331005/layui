@@ -139,6 +139,10 @@ $.tabPanel = {
 	},
 	close : function (id){
 		topwindow.Addtabs.close(id);
+	},
+	closeCurrent : function (){
+		var tabid = $('#tabs', topwindow.document).find('li.active a').attr('aria-controls');//取得当前活动tab
+		$.tabPanel.close(tabid);
 	}
 }
 })(jQuery);
@@ -154,7 +158,8 @@ $.tabPanel = {
  */
 function submitCallback(form, callback, confirmMsg, isClose, tid, type) {
 	
-	var $form = $(form);	
+	var $form = $(form);
+	if(!$form.valid())return;
 	var _submitFn = function(){
 		$.ajax({
 			type: form.method || 'POST',

@@ -11,14 +11,12 @@ body {
 .searchPanel .panel-default{
 	margin-bottom: 0px;	
 }
-.searchPanel .panel-default .panel-heading{
-	padding: 3px 15px;
-}
 .searchPanel .panel-default .panel-body input{
 	display: inline;
 	width: 150px;
 	margin-right: 15px;
 }
+
  /*工具栏*/
 .toolsBar{
 	padding:  2px 5px;
@@ -73,4 +71,8 @@ body {
 }
 .tabfooter button{
 	margin-right: 15px;
+}
+/*form 表单面板*/
+.formPanel{
+	padding:  5px 5px;
 }
