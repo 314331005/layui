@@ -20,6 +20,30 @@ $.extend( $.fn, {
 
 	// http://jqueryvalidation.org/validate/
 	validate: function( options ) {
+		//直行默认配置 结合bootstrap
+		/*jQuery.validator.setDefaults({  
+		    event:"keyup",//触发校验的方式，可选值有keyup(每次按键时)，blur(当控件失去焦点时)  
+		    debug:true,//如果这个参数为true，那么表单不会提交，只进行检查，调试时十分方便.   
+		    ignore: "", 
+		    errorClass : 'help-block',    
+		    focusInvalid : true,  
+		    onclick : function (element) {  
+		        $(element).valid();  
+		    },  
+		    onfocusout: function (element) {  
+		        $(element).valid();  
+		    },  
+		    highlight : function(element) {  
+		        $(element).parent('div').removeClass('has-success').addClass('has-error');  
+		    },  
+		    success : function(label) {    
+		        label.parent('div').removeClass('has-error').addClass('has-success');    
+		        label.remove();    
+		    },    
+		    errorPlacement : function(error, element) {    
+		        element.parent('div').append(error);    
+		    }  
+		});  */
 
 		// If nothing is selected, return nothing; can't chain anyway
 		if ( !this.length ) {

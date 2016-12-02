@@ -169,3 +169,10 @@ body {
 .homePanel .panel-body .table{
 	margin-bottom: 5px;
 }
+/*tab bar*/
+.nav-tabs>li.active>a {
+	
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+	border-top-color: #fff;
+}

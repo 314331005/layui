@@ -3,6 +3,8 @@ body {
 	font-size: 14px;
 	margin: 0;
 }
+/*radio 美化*/
+
  /*查询面板*/
 .searchPanel{
 	padding:  2px 5px;
@@ -66,7 +68,7 @@ body {
  
  /*tab 表单页面*/
 .tabfooter{
-	padding-top: 15px;
+	padding-top: 0px;
 	text-align: right;
 }
 .tabfooter button{
@@ -75,4 +77,38 @@ body {
 /*form 表单面板*/
 .formPanel{
 	padding:  5px 5px;
+}
+.formPanel .panel-body .control-label{
+	font-size: 14px;
+	text-align: right;
+	font-weight:normal;
+	line-height: 34px;
+}
+.formPanel .panel-body .control-text{
+	line-height: 34px;
+	text-align: left;
+	margin-left: 0px;
+}
+.formPanel .panel-body .control-text  input{
+	display: inline;
+	
+}
+.formPanel .panel-body .form-group{
+	padding: 10px;
+}
+.formPanel .panel-body .control-text .radio-inline input{
+	margin-top: 7px;
+	width: 20px;
+	height: 20px;
+}
+.formPanel .panel-body .control-text .checkbox-inline input{
+	margin-top: 7px;
+	width: 20px;
+	height: 20px;
+	margin-right: 20px;
+}
+/*form validate msg*/
+.error{
+	color: #a94442;
+	font-size: 12px;
 }

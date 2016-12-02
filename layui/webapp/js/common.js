@@ -16,6 +16,8 @@ $(function($) {
 	$('button[data-dialog]').on("click", function(){
 		$.dialog.open($(this).attr('url'), $(this).attr('title'), $(this).attr('data-dialog'), $(this).attr('data'), $(this).attr('model'));
 	});
+	//绑定日期控件调用
+	$('.datetimepicker').datetimepicker();
 });
 /**
  * 主页窗口高度自动调整，不包含tab iframe调整，iframe调整在tab插件里面自动调整
@@ -216,6 +218,7 @@ function submitTabCallback(form, callback, confirmMsg, isClose, tid) {
 	submitCallback(form, callback, confirmMsg, isClose, tid, 2);
 	return false;
 }
+
 /**
  * 扩展String方法
  */
