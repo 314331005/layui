@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <div class="panel-body">
 		  	<form action="<%=basePath%>user/list">
 		  		<input type="hidden" name="tid" id ="tid" value="${tid}"/>
-		  		账号：<input type="text" class="form-control"/>
+		  		账号：<input type="text" class="form-control" name= "ft_name_eq"/>
 				用户名：<input type="text" class="form-control"/>
 				<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-zoom-in"></span>查询</button>
 				<button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-repeat"></span>重置</button>
@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tbody>
 					<c:forEach items="${userList}" var="u">
 						<tr>
-							<td>${u.id}</td><td>${u.userName}</td><td>${u.age}</td><td>2016-11-11</td><td>禁用</td><td><a class="btn btn-default" href="#" role="button">查看</a></td>
+							<td>${u.id}</td><td>${u.userName}</td><td>${u.age}</td><td>2016-11-11</td><td>禁用</td><td><a class="btn btn-default" href="#" data-addtab="tabUserView" url="user/viewUser?id=${u.id}&type=2&tid=${tid}" title="查看用户">查看</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 $("#addUserJs").on("click", function(){
-	$.dialog.open('/layui/user/edit?tid=${tid}', '添加用户', 'userEditPanel');
+	$.dialog.open('/layui/user/edit?tid=${tid}',{width:850,  title : '用户添加', id : 'userEditPanel'});
 });
 $("#addUserTabJs").on("click", function(){
 	$.tabPanel.openJs('/layui/user/edit?type=2&tid=${tid}', '132132132', '添加用户');

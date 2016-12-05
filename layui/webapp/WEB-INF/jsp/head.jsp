@@ -21,6 +21,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=basePath%>js/validate/dist/localization/messages_zh.js"></script>
 <!-- validate end -->
 <script type="text/javascript" src="<%=basePath%>js/common.js"></script>
-<!-- jquery date select -->
-<script type="text/javascript" src="<%=basePath%>js/jedate/jedate.js"></script>
 

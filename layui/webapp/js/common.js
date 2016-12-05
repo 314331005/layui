@@ -9,15 +9,28 @@ var topwindow = window.top.window;
 $(function($) {
 	
 	//绑定按钮方式打开tab页面
-	$('button[data-addtab]').on("click", function(){
+	$('button[data-addtab], a[data-addtab]').on("click", function(){
 		$.tabPanel.open($(this));
 	});
 	//绑定按钮方式打开模态窗口页面
-	$('button[data-dialog]').on("click", function(){
-		$.dialog.open($(this).attr('url'), $(this).attr('title'), $(this).attr('data-dialog'), $(this).attr('data'), $(this).attr('model'));
+	$('button[data-dialog], a[data-dialog]').on("click", function(){
+		$.dialog.open($(this).attr('url'),{width:$(this).attr('width'), height:$(this).attr('height'), data:$(this).attr('data'), title : $(this).attr('title'), id : $(this).attr('data-dialog')});
 	});
 	//绑定日期控件调用
-	$('.datetimepicker').datetimepicker();
+	//if($('.datetimepicker')){
+	$('.datepicker').datetimepicker({
+		minView: "month",//设置只显示到月份
+		format : "yyyy-mm-dd",//日期格式
+		autoclose:true,//选中关闭
+		todayBtn: true //今日按钮
+	});
+	$('.timepicker').datetimepicker({
+		format : "yyyy-mm-dd hh:ii:ss",//日期格式
+		autoclose:true,//选中关闭
+		todayBtn: true //今日按钮
+	});
+	//}
+	
 });
 /**
  * 主页窗口高度自动调整，不包含tab iframe调整，iframe调整在tab插件里面自动调整
@@ -41,17 +54,30 @@ $.dialog = {
 	 * @param {String} url 
 	 * @param {String} title 标题
 	 * @param {String} id 窗口id
+	 * @param {Object} option 窗口属性 option
 	 * @param {String} data 提交参数
-	 * @param {String} model 是否模态
+	 * @param {String} model 是否模态，默认false
+	 * @param {int} width 宽度,默认850px
+	 * @param {int} height 高度，默认跟随内容高度
 	 */
-	open : function(url, title, id , data, model){
-		htmlhead = '<div class="modal fade" id="'+id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">'
-					+'<div class="modal-dialog">'
-						+'<div class="modal-content">'
+	open : function(url, option){
+		opt = {
+			url : url,
+			id : (typeof(eval(option).id) != "undefined") ? eval(option).id : new Date().getTime(),
+			title : (typeof(eval(option).title) != "undefined") ? eval(option).title : '新窗口',
+			data : eval(option).data,
+			width : (typeof(eval(option).width) != "undefined") ? eval(option).width : '850',
+			height : (typeof(eval(option).height) != "undefined") ? eval(option).height : '',
+			model : (typeof(eval(option).model) != "undefined") ? eval(option).model : false
+		};	
+		htmlhead = '<div class="modal fade myModelDialog" id="'+ opt.id +'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">'
+					+'<div class="modal-dialog"  >'
+						+'<div class="modal-content" style="width:'+ opt.width +'px;height:'+ opt.height +'px;overflow:auto;">'
 							+' <div class="modal-header">'
 								+' <button type="button" class="close" data-dismiss="modal"></button>'
-								+' <h4 class="modal-title" id="myModalLabel">'+title+'</h4>'
+								+' <h4 class="modal-title" id="">'+ opt.title +'</h4>'
 							+'</div>';
+		
 		htmlend = 		'</div>'
 					+'</div>'
 				+'</div>';
@@ -59,10 +85,10 @@ $.dialog = {
 			   type: "POST",
 			   url: url,
 			   dataType: "html",
-			   data: data,
+			   data: opt.data,
 			   success: function(msg){
 			   		$('body').append( htmlhead + msg +htmlend);
-			   		$('#' + id).modal('show');
+			   		$('#' + opt.id).modal('show');
 			   }
 		});
 		/*$('#'+id).on('hide.bs.modal', function () {
@@ -77,7 +103,7 @@ $.dialog = {
 	},
 	colseCurrent : function(obj){
 		var $obj = $(obj);	
-		var id = $obj.parents('div[class="modal fade in"]').attr("id");
+		var id = $obj.parents('div[class="modal fade myModelDialog in"]').attr("id");
 		$('#'+id).modal('hide');
 		$('#'+id).remove();
 	},

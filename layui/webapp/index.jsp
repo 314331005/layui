@@ -10,11 +10,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<title>吉林省佳硕科技有限责任公司</title>
     <link rel="stylesheet" href="<%=basePath%>bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>bootstrap/css/bootstrap.addtabs.css" type="text/css" media="screen"/>
+    <link href="<%=basePath%>bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="<%=basePath%>css/index.css">
+    
     <script type="text/javascript" src="<%=basePath%>js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.layout.js"></script>
     <script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap.addtabs.js"></script>
+    <!-- bootstrap datepicker -->
+	<script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="<%=basePath%>bootstrap/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+	
 	<script type="text/javascript" src="<%=basePath%>js/common.js"></script>
 	<!-- dialog -->
 	<link rel="stylesheet" href="<%=basePath%>js/dialog/jDialog/jDialog.css" type="text/css">

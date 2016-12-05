@@ -89,6 +89,22 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@RequestMapping("/viewUser")
+	public String viewUser(int id, HttpServletRequest request, String type, String tid){
+		
+		request.setAttribute("user", userService.findById(id));
+		request.setAttribute("tid", tid);
+		if(!Strings.isBlank(type) && type.equals("2")){
+			return "/user-view-tab";
+		}
+		return "/user-view";
+	}
+	/**
+	 * 根据id查询单个用户
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/getUser")
 	public String getUser(int id,HttpServletRequest request){
 		
