@@ -1,8 +1,8 @@
-package com.tgb.mapper;
+package com.ws.mapper;
 
 import java.util.List;
 
-import com.tgb.model.User;
+import com.ws.model.User;
 
 public interface UserMapper {
 

@@ -1,4 +1,4 @@
-package com.tgb.controller;
+package com.ws.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tgb.model.User;
-import com.tgb.service.UserService;
-import com.tgb.utils.ReturnUtils;
+import com.ws.model.User;
+import com.ws.service.UserService;
+import com.ws.utils.ReturnUtils;
 
 @Controller
 @RequestMapping("/user")

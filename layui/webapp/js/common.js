@@ -15,9 +15,21 @@ $(function($) {
 	//绑定按钮方式打开模态窗口页面
 	$('button[data-dialog], a[data-dialog]').on("click", function(){
 		$.dialog.open($(this).attr('url'),{width:$(this).attr('width'), height:$(this).attr('height'), data:$(this).attr('data'), title : $(this).attr('title'), id : $(this).attr('data-dialog')});
-	});
+	});	
+});
+/**
+ * 主页窗口高度自动调整，不包含tab iframe调整，iframe调整在tab插件里面自动调整
+ */
+function reWinSize(){
+	var h = $(window).height() - 133; //title100 + 底部33计算内容高度
+	$("#mainContent").css({"height" : h});
+	$("#home").css({"height" : h-42, "overflow":"auto"});//42代表tab标签高度
+}
+/**
+ * 初始化组件
+ */
+function init(){
 	//绑定日期控件调用
-	//if($('.datetimepicker')){
 	$('.datepicker').datetimepicker({
 		minView: "month",//设置只显示到月份
 		format : "yyyy-mm-dd",//日期格式
@@ -29,18 +41,7 @@ $(function($) {
 		autoclose:true,//选中关闭
 		todayBtn: true //今日按钮
 	});
-	//}
-	
-});
-/**
- * 主页窗口高度自动调整，不包含tab iframe调整，iframe调整在tab插件里面自动调整
- */
-function reWinSize(){
-	var h = $(window).height() - 133; //title100 + 底部33计算内容高度
-	$("#mainContent").css({"height" : h});
-	$("#home").css({"height" : h-42, "overflow":"auto"});//42代表tab标签高度
 }
-
 /**
  * 模态对话框
  */
@@ -89,6 +90,7 @@ $.dialog = {
 			   success: function(msg){
 			   		$('body').append( htmlhead + msg +htmlend);
 			   		$('#' + opt.id).modal('show');
+			   		init();//重新加载初始化
 			   }
 		});
 		/*$('#'+id).on('hide.bs.modal', function () {

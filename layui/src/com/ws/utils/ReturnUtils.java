@@ -1,4 +1,4 @@
-package com.tgb.utils;
+package com.ws.utils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

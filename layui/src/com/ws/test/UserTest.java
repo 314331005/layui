@@ -1,4 +1,4 @@
-package com.tgb.test;
+package com.ws.test;
 
 
 import java.util.List;
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tgb.mapper.UserMapper;
-import com.tgb.model.User;
+import com.ws.mapper.UserMapper;
+import com.ws.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/config/spring-common.xml")

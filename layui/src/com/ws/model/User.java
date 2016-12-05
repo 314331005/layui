@@ -1,4 +1,4 @@
-package com.tgb.model;
+package com.ws.model;
 
 /**
  * 用户

@@ -1,4 +1,4 @@
-package com.tgb.service.impl;
+package com.ws.service.impl;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tgb.mapper.UserMapper;
-import com.tgb.model.User;
-import com.tgb.service.UserService;
+import com.ws.mapper.UserMapper;
+import com.ws.model.User;
+import com.ws.service.UserService;
 
 
 
