@@ -45,7 +45,7 @@ public class UserController {
 	 */
 	@RequestMapping("/edit")
 	public String toAddUser(HttpServletRequest request, String tid, String type){
-		System.out.println(tid);
+		System.out.println("tabid"+ tid);
 		request.setAttribute("tid", tid);
 		if(Strings.isNotBlank(type) && type.equals("2")){
 			return "/user-edit-tab";

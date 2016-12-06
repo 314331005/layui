@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 $("#addUserJs").on("click", function(){
-	$.dialog.open('/layui/user/edit?tid=${tid}',{width:850,  title : '用户添加', id : 'userEditPanel'});
+	$.dialog.open('/layui/user/edit?tid=${tid}',{title : '用户添加', id : 'userEditPanel'});
 });
 $("#addUserTabJs").on("click", function(){
 	$.tabPanel.openJs('/layui/user/edit?type=2&tid=${tid}', '132132132', '添加用户');

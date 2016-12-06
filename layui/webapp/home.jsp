@@ -7,9 +7,9 @@
 		  <div class="panel-heading">常用工具</div>
 		  <div class="panel-body">
 			<div class="row">
-			  <div class="col-md-1"><div style="text-align: center;"><img src="img/menus/user.png" width="80" height="80"><br><span>用户管理</span></div></div>
-			  <div class="col-md-1"><div style="text-align: center;"><img src="img/menus/system.png" width="80" height="80"><br><span>系统管理</span></div></div>
-			  <div class="col-md-1"><div style="text-align: center;"><img src="img/menus/password.png" width="80" height="80"><br><span>密码管理</span></div></div>
+			  <div class="col-md-1"><div style="text-align: center;"><img src="img/menus/user.png" width="60" height="60"><br><span>用户管理</span></div></div>
+			  <div class="col-md-1"><div style="text-align: center;"><img src="img/menus/system.png" width="60" height="60"><br><span>系统管理</span></div></div>
+			  <div class="col-md-1"><div style="text-align: center;"><img src="img/menus/password.png" width="60" height="60"><br><span>密码管理</span></div></div>
 			</div>		    
 		  </div>
 		</div>

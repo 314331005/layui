@@ -72,8 +72,8 @@ $.dialog = {
 			model : (typeof(eval(option).model) != "undefined") ? eval(option).model : false
 		};	
 		htmlhead = '<div class="modal fade myModelDialog" id="'+ opt.id +'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">'
-					+'<div class="modal-dialog"  >'
-						+'<div class="modal-content" style="width:'+ opt.width +'px;height:'+ opt.height +'px;overflow:auto;">'
+					+'<div class="modal-dialog" style="width:'+ opt.width +'px;">'
+						+'<div class="modal-content" style="height:'+ opt.height +'px;overflow:auto;">'
 							+' <div class="modal-header">'
 								+' <button type="button" class="close" data-dismiss="modal"></button>'
 								+' <h4 class="modal-title" id="">'+ opt.title +'</h4>'
