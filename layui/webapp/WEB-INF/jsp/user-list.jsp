@@ -35,8 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	<button id="addUser" type="button" class="btn btn-primary" data-dialog="addUserDialog" title="添加用户" url="/layui/user/edit?tid=${tid}" data=""><span class="glyphicon glyphicon-plus"></span>添加</button>
 			  	<button type="button" class="btn btn-primary" data-addtab="tabUserAdd" url="user/edit?type=2&tid=${tid}"><span class="glyphicon glyphicon-plus"></span>TAB添加</button>
 			  	<button id="addUserTabJs" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>jsTAB添加</button>
-			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>编辑</button>
-			  	<button type="button" class="btn btn-primary" onclick="alert($('#userteble').bootstrapTable('getSelections'))"><span class="glyphicon glyphicon-trash"></span>删除</button>
+			  	<button type="button" class="btn btn-primary" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span>编辑</button>
+			  	<button type="button" class="btn btn-primary" onclick="dels()"><span class="glyphicon glyphicon-trash"></span>删除</button>
 			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span>禁用</button>
 			  </div>
 		  </div>
@@ -46,15 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <div class="col-md-12 dataTablePanle">
 	  	<div class="panel panel-default">
 		  <div class="panel-body">
-			<%-- <table data-toggle="table" data-url="<%=basePath%>user/jsonlist" data-side-pagination="true" sidePagination="server" data-page-size="5" data-page-number="1"	data-page-list="[10, 25, 50, 100, All]">
-			    <thead>
-			        <tr>
-			            <th data-field="id">编号</th>
-			            <th data-field="userName">用户名称</th>
-			            <th data-field="age">用户年龄</th>
-			        </tr>
-			    </thead>
-			</table> --%>
 			<table id="userteble" data-toggle="table" fromSearch="userSearchForm"></table>
 		  </div>
 		</div>
@@ -68,12 +59,13 @@ $("#addUserJs").on("click", function(){
 $("#addUserTabJs").on("click", function(){
 	$.tabPanel.openJs('/layui/user/edit?type=2&tid=${tid}', '132132132', '添加用户');
 });
-$.tablePage.show('userteble','<%=basePath%>user/jsonlist', {pagination : true},
+$.tablePage.show('userteble','<%=basePath%>user/jsonlist', {pagination : true},//带分页
 	[{
 		checkbox : true
 	}, {
 		field : 'id',
 		title : '编号',
+		visible : false
 	}, {
 		field : 'userName',
 		title : '用户名'
@@ -95,6 +87,24 @@ $.tablePage.show('userteble','<%=basePath%>user/jsonlist', {pagination : true},
 	//查看详情
 	function view(id){
 		$.tabPanel.openJs('user/viewUser?id='+id+'&type=2&tid=${tid}', 'id3434', '查看用户');
+	}
+	//删除
+	function dels(){
+		var ids = $.tablePage.getSelect('userteble');//获取选中数据
+		if($.message.checksel(ids, true)){//验证选则（多选）
+			$.message.confirm('确认删除？',
+				function(){
+					alert(ids); //执行删除
+				}
+			);
+		}
+	}
+	//编辑
+	function edit(){
+		var ids = $.tablePage.getSelect('userteble');//获取选中数据
+		if($.message.checksel(ids)){//验证选则（单选）
+			alert(ids);//执行修改
+		}
 	}
 </script>
 </body>

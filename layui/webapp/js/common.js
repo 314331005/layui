@@ -148,11 +148,49 @@ $.message = {
 		if (typeof(a) != "undefined") {
 			time = time;
 		}
-		var dialog = window.top.window.jDialog.message(msg,{
+		var dialog = topwindow.jDialog.message(msg,{
 			autoClose : time,    // 1.5s后自动关闭
 			padding : '30px',    // 设置内部padding
 			modal: modal         // 非模态，即不显示遮罩层
 		});
+	},
+	/**
+	 * 确认对话框
+	 * @param {String} msg 提示信息 
+	 * @param {function} yesCallback 确认调用
+	 * @param {function} noCallback 取消调用
+	 */
+	confirm : function(msg, yesCallback, noCallback){
+		var text = typeof(msg) != "undefined" ? msg : '是否确认操作？'
+		var dialog = topwindow.jDialog.confirm(text,{
+			handler : function(button,dialog) {
+				dialog.close();
+				yesCallback();
+			}
+		},{
+			handler : function(button,dialog) {
+				dialog.close();
+				noCallback();
+			}
+		});
+	},
+	/**
+	 * 判断表格选择
+	 * @param {array} array 要判断数组 
+	 * @param {boolean} more 多选【ture】 单选 【false】 默认单选
+	 */
+	checksel : function(array, more){
+		if(state = typeof(array) == "undefined") return false;
+		var state = typeof(more) != "undefined" ? more : false;
+		if(array.length == 0){
+			$.message.msg('请选择记录！');
+			return false;
+		}
+		if(!state && array.length != 1){//单选判断
+			$.message.msg('只能选择一条记录！');
+			return false;
+		}
+		return true;
 	}
 }
 /**
@@ -226,8 +264,13 @@ $.tablePage = {
 			columns :  column 
 		});
 	},
-	getSelect : function (id) {
-		
+	getSelect : function (id) {//获取选中行
+		var array = $('#' + id).bootstrapTable('getSelections');
+		var selarray = [];
+		for(i = 0; i<array.length; i++){
+			selarray.push(eval(array[i]).id);
+		}
+		return selarray;
 	},
 	refresh : function (id, param){
 		$('#' + id).bootstrapTable('refresh',param);
