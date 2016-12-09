@@ -15,7 +15,19 @@ $(function($) {
 	//绑定按钮方式打开模态窗口页面
 	$('button[data-dialog], a[data-dialog]').on("click", function(){
 		$.dialog.open($(this).attr('url'),{width:$(this).attr('width'), height:$(this).attr('height'), data:$(this).attr('data'), title : $(this).attr('title'), id : $(this).attr('data-dialog')});
+	});
+	//表格全选/取消全选
+	$('.dataTable .box input[type=checkbox]').on("click", function(){
+		if($(this).is(':checked')){
+			$(this).parents('.dataTable').find('input[type="checkbox"][name="_id"]').attr("checked",true); 
+		}else{
+			$(this).parents('.dataTable').find('input[type="checkbox"][name="_id"]').attr("checked",false); 
+		}
 	});	
+	//绑定ajax
+	$('button[target=ajax], a[target=ajax]').on("click", function(){
+		alert($(this).html());
+	});
 });
 /**
  * 主页窗口高度自动调整，不包含tab iframe调整，iframe调整在tab插件里面自动调整
@@ -173,6 +185,52 @@ $.tabPanel = {
 	closeCurrent : function (){
 		var tabid = $('#tabs', topwindow.document).find('li.active a').attr('aria-controls');//取得当前活动tab
 		$.tabPanel.close(tabid);
+	}
+}
+/**
+ * 分页表格
+ */
+/**
+ * 数据表格
+ * @param {String} id 元素id
+ * @param {String} 加载数据url 返回json
+ * @param {object} option 表格属性[待扩展]
+ * @param {array obj} column 表格字段，写法遵循bootstraptable写法
+ */
+$.tablePage = {
+	show : function(id, url, option, column){
+		$('#' + id).bootstrapTable({
+			url : url,//url默认走的是get
+			//method : 'post',
+			striped : true,
+			dataType: 'json',
+			pagination : eval(option).pagination,
+			pageList : [ 15, 20, 25 ],
+			pageSize : 10,
+			selectItemName : 'id',
+			pageNumber : 1,
+			queryParamsType: "",//这里只是选择适合我后台的逻辑，可以选择传入页数和显示数量
+			queryParams: function queryParams(params) {   //设置查询参数  
+				form = $('#'+$('#' + id).attr('fromSearch')).serializeArray();//取得查询条件元素
+				var p =  {
+					pageSize : params.pageSize,//键就是自己后台的参数
+					pageNumber : params.pageNumber	
+				};
+				$.each(form, function(i, field){//查询参数
+					var obj = field.value; 
+					p[field.name] = obj; 
+			    });
+				return p;                   
+			},  
+			sidePagination : 'server',//设置为服务器端分页
+			columns :  column 
+		});
+	},
+	getSelect : function (id) {
+		
+	},
+	refresh : function (id, param){
+		$('#' + id).bootstrapTable('refresh',param);
 	}
 }
 })(jQuery);

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ws.common.Page;
 import com.ws.mapper.UserMapper;
 import com.ws.model.User;
 import com.ws.service.UserService;
@@ -46,7 +47,16 @@ public class UserServiceImpl implements UserService {
 
 		return mapper.update(user);
 	}
-	
-	
 
+	public Page<User> findPage(Page<User> page) {
+		int size = mapper.findCount();
+		page.setTotalCount(size);
+		List<User> list =  mapper.findPage(page);
+		page.setResult(list);
+		return page;
+	}
+
+	public int findCount() {
+		return mapper.findCount();
+	}
 }

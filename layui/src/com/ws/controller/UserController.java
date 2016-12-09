@@ -7,12 +7,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.nutz.lang.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ws.common.Page;
 import com.ws.model.User;
 import com.ws.service.UserService;
 import com.ws.utils.ReturnUtils;
@@ -36,6 +39,25 @@ public class UserController {
 		request.setAttribute("tid", tid);
 		request.setAttribute("userList", list);
 		return "/user-list";
+	}
+	/**
+	 * 获取用户数据
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/jsonlist")
+	@ResponseBody
+	public Object getAllUserJson(HttpServletRequest request, String tid, String pageSize, String pageNumber){
+		
+		Page<User> page = new Page<User>();
+		page.setPageSize(Integer.valueOf(pageSize));
+		page.setPageNumber(Integer.valueOf(pageNumber));
+		
+		Page<User> p = userService.findPage(page);
+		JSONObject json = new JSONObject();
+		json.put("total",p.getTotalCount());
+		json.put("rows", p.getResult());
+		return json;
 	}
 	
 	/**
@@ -61,6 +83,7 @@ public class UserController {
 	@RequestMapping("/addUser")
 	@ResponseBody 
 	public Object addUser(User user, HttpServletRequest request){
+		System.out.println(user.getUserName());
 		userService.save(user);
 		return ReturnUtils.success("操作成功");
 	}

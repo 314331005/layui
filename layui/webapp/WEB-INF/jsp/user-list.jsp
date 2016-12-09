@@ -16,11 +16,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<div class="panel panel-default">
 		  <div class="panel-heading">查询</div>
 		  <div class="panel-body">
-		  	<form action="<%=basePath%>user/list">
+		  	<form id="userSearchForm" action="<%=basePath%>user/list">
 		  		<input type="hidden" name="tid" id ="tid" value="${tid}"/>
-		  		账号：<input type="text" class="form-control" name= "ft_name_eq"/>
-				用户名：<input type="text" class="form-control"/>
-				<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-zoom-in"></span>查询</button>
+		  		账号：<input type="text" class="form-control" name= "ft_userName_eq"/>
+				用户名：<input type="text" class="form-control" name= "ft_tureName_eq"/>
+				<button class="btn btn-default" type="button" onclick="$.tablePage.refresh('userteble', '')"><span class="glyphicon glyphicon-zoom-in"></span>查询</button>
 				<button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-repeat"></span>重置</button>
 		  	</form>
 		  </div>
@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	<button type="button" class="btn btn-primary" data-addtab="tabUserAdd" url="user/edit?type=2&tid=${tid}"><span class="glyphicon glyphicon-plus"></span>TAB添加</button>
 			  	<button id="addUserTabJs" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>jsTAB添加</button>
 			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>编辑</button>
-			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span>删除</button>
+			  	<button type="button" class="btn btn-primary" onclick="alert($('#userteble').bootstrapTable('getSelections'))"><span class="glyphicon glyphicon-trash"></span>删除</button>
 			  	<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span>禁用</button>
 			  </div>
 		  </div>
@@ -46,46 +46,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <div class="col-md-12 dataTablePanle">
 	  	<div class="panel panel-default">
 		  <div class="panel-body">
-			<table class="table table-condensed table-bordered dataTable">
-				<thead>
-					<tr>
-						<th class="no">序号</th>
-						<th>账号</th>
-						<th>用户名</th>
-						<th>创建时间</th>
-						<th>状态</th>
-						<th>操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${userList}" var="u">
-						<tr>
-							<td>${u.id}</td><td>${u.userName}</td><td>${u.age}</td><td>2016-11-11</td><td>禁用</td><td><a class="btn btn-default" href="#" data-addtab="tabUserView" url="user/viewUser?id=${u.id}&type=2&tid=${tid}" title="查看用户">查看</a></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>    
+			<%-- <table data-toggle="table" data-url="<%=basePath%>user/jsonlist" data-side-pagination="true" sidePagination="server" data-page-size="5" data-page-number="1"	data-page-list="[10, 25, 50, 100, All]">
+			    <thead>
+			        <tr>
+			            <th data-field="id">编号</th>
+			            <th data-field="userName">用户名称</th>
+			            <th data-field="age">用户年龄</th>
+			        </tr>
+			    </thead>
+			</table> --%>
+			<table id="userteble" data-toggle="table" fromSearch="userSearchForm"></table>
 		  </div>
 		</div>
-	  </div>
-	</div>
-	<div class="row">
-	  <div class="col-md-12 pageBar">
-		  <div class="panel panel-default">
-			  <div class="panel-body">
-			  	<nav>
-				  	<ul class="pagination">
-				        <li class="disabled"><a href="#">«</a></li>
-				        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-				        <li><a href="#">2</a></li>
-				        <li><a href="#">3</a></li>
-				        <li><a href="#">4</a></li>
-				        <li><a href="#">5</a></li>
-				        <li><a href="#">»</a></li>
-				     </ul>
-				</nav>
-			  </div>
-		  </div>
 	  </div>
 	</div>  
 </div>
@@ -96,6 +68,34 @@ $("#addUserJs").on("click", function(){
 $("#addUserTabJs").on("click", function(){
 	$.tabPanel.openJs('/layui/user/edit?type=2&tid=${tid}', '132132132', '添加用户');
 });
+$.tablePage.show('userteble','<%=basePath%>user/jsonlist', {pagination : true},
+	[{
+		checkbox : true
+	}, {
+		field : 'id',
+		title : '编号',
+	}, {
+		field : 'userName',
+		title : '用户名'
+	}, {
+		field : 'age',
+		title : '年龄'
+	},{
+        title : '操作',
+        field : 'id',
+        width : 150,
+        align : 'center',
+        formatter:function(value,row,index){  
+			var e = '<a href="#" mce_href="#" onclick="view(\''+ row.id + '\')">查看</a> ';  
+		    var d = '<a href="#" mce_href="#" onclick="del(\''+ row.id +'\')">删除</a> ';  
+          	return e+d;  
+      } 
+    }
+	]);
+	//查看详情
+	function view(id){
+		$.tabPanel.openJs('user/viewUser?id='+id+'&type=2&tid=${tid}', 'id3434', '查看用户');
+	}
 </script>
 </body>
 </html>

@@ -8,6 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>ws</title>
 <link rel="stylesheet" href="<%=basePath%>bootstrap/css/bootstrap.min.css">
 <link href="<%=basePath%>bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="<%=basePath%>bootstrap/css/bootstrap-table.min.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="<%=basePath%>css/common.css">
 
 <script type="text/javascript" src="<%=basePath%>js/jquery-3.1.1.min.js"></script>
@@ -15,6 +16,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- bootstrap datepicker -->
 <script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=basePath%>bootstrap/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<!-- bootstrap table -->
+<script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap-table.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=basePath%>bootstrap/locales/bootstrap-table-zh-CN.js" charset="UTF-8"></script>
 
 <!-- validate  -->
 <script type="text/javascript" src="<%=basePath%>js/validate/dist/jquery.validate.js"></script>

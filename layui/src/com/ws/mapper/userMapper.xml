@@ -28,5 +28,10 @@
 	<select id="findAll" resultType="User">
 		select user_id id,user_name userName,user_age age from t_user
 	</select>
-	
+	<select id="findPage" resultType="User" parameterType="com.ws.common.Page">
+		select user_id id,user_name userName,user_age age from t_user   LIMIT #{offset} , #{pageSize}
+	</select>
+	<select id="findCount" resultType="int">
+		select count(*) from t_user 
+	</select>
 </mapper>

@@ -51,6 +51,13 @@ body {
 .dataTable .no{
 	width: 50px;
 }
+.dataTable .box{
+	width: 20px;
+}
+.dataTable input[type=checkbox]{
+	width: 15px;
+	height: 15px;
+}
  /*·ÖÒ³*/
 .pageBar{
 	padding:  2px 5px;
