@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<div class="panel panel-default">
 		  <div class="panel-heading">查询</div>
 		  <div class="panel-body">
-		  	<form id="userSearchForm" action="<%=basePath%>user/list">
+		  	<form id="userSearchForm">
 		  		<input type="hidden" name="tid" id ="tid" value="${tid}"/>
 		  		账号：<input type="text" class="form-control" name= "ft_userName_eq"/>
 				用户名：<input type="text" class="form-control" name= "ft_tureName_eq"/>

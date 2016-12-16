@@ -282,12 +282,12 @@ $.tablePage = {
  * 普通ajax表单提交
  * @param {Object} form
  * @param {function} callback
- * @param {String} confirmMsg 提示确认信息
+ * @param {String} option 选项参数：{}
  * @param {boolean} isClose 执行完关闭
- * @param {boolean} tid 刷新父窗口
+ * @param {boolean} tid 刷新父窗口tab id 只在tab方式下调用
  * @param {String} type 2 ：tab窗口
  */
-function submitCallback(form, callback, confirmMsg, isClose, tid, type) {
+function submitCallback(form, callback, option, tid) {
 	
 	var $form = $(form);
 	if(!$form.valid())return;
@@ -303,30 +303,33 @@ function submitCallback(form, callback, confirmMsg, isClose, tid, type) {
 				if (typeof(callback) != "undefined") {
 					 callback(msg);
 				}
-				
-				if (typeof(confirmMsg) != "undefined") {
-					if (confirmMsg) {
-				    	$.message.msg(msg.message);
-				    }
+				if (typeof(msg.message) != "undefined") {
+					$.message.msg(msg.message);
 				}
-				if (typeof(tid) != "undefined") {
-					//查找tab下iframe的searchpanel面板的form表单并提交
-					$(topwindow.document.getElementById('tab_'+ tid + '_f')).contents().find('body .searchPanel form').submit();
+				if (typeof(eval(option).reftable) != "undefined") {
+					//alert(eval(option).reftable);
+					if (typeof(tid) != "undefined") {
+						alert('tab_'+ tid + '_f');
+						//查找tab下iframe的searchpanel面板的form表单并提交
+						//var tablieid = $(topwindow.document.getElementById('tab_'+ tid + '_f')).contents().find('body .searchPanel form').submit();//-----bug- iframe 刷新父表格---未完成
+						topwindow.document.getElementById('tab_'+ tid + '_f').contentWindow.$.tablePage.refresh(eval(option).reftable, '');
+					}else{
+						$.tablePage.refresh(eval(option).reftable, '');
+					}
 				}
-				if (typeof(isClose) != "undefined") {
-					if(isClose && msg.statusCode == 200){
-						if(type == '2'){
-							//关闭当前tab页面
-							var tabid = $('#tabs', topwindow.document).find('li.active a').attr('aria-controls');//取得当前活动tab
-							$.tabPanel.close(tabid);
-							
-						}else{
-							//关闭模态窗口
-							var id = $form.parent('div[class="modal fade in"]').attr('id');
-					    	$.dialog.colse(id)
-						}
-				    	
-				    }
+				if(typeof(eval(option).dlClose) != "undefined"){
+					if(eval(option).dlClose && msg.statusCode == 200){
+						//关闭模态窗口
+						var id = $form.parents('div[class="modal fade myModelDialog in"]').attr('id');
+				    	$.dialog.colse(id);
+					}
+				}
+				if(typeof(eval(option).tabClose) != "undefined"){
+					if(eval(option).tabClose && msg.statusCode == 200){
+						//关闭当前tab页面
+						var tabid = $('#tabs', topwindow.document).find('li.active a').attr('aria-controls');//取得当前活动tab
+						$.tabPanel.close(tabid);
+					}
 				}
 			}
 		});
@@ -342,9 +345,8 @@ function submitCallback(form, callback, confirmMsg, isClose, tid, type) {
  * @param {boolean} isClose 执行完关闭
  * * @param {boolean} tid 刷新父窗口
  */
-function submitTabCallback(form, callback, confirmMsg, isClose, tid) {
-	
-	submitCallback(form, callback, confirmMsg, isClose, tid, 2);
+function submitTabCallback(form, callback, option, tid) {
+	submitCallback(form, callback, option, tid);
 	return false;
 }
 

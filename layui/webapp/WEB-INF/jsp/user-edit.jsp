@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <div class="panel-body">
 		  <fieldset>
    			<legend>基础信息</legend>
-			  <form  action="<%=basePath%>user/addUser" name="userForm" id="userForm" method="post" onsubmit="return submitCallback(this, callback, true, true, '${tid}');">
+			  <form  action="<%=basePath%>user/addUser" name="userForm" id="userForm" method="post" onsubmit="return submitCallback(this, callback, {dlClose:true, reftable:'userteble'});">
 				  <div class="row">
 					  <div class="form-group">
 					    <label class="col-sm-2 control-label">姓名 :</label>
@@ -147,6 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	/*回调函数*/
 	function callback(msg){
+		//alert(msg);
 		//$.dialog.colse('userEditPanel');//手动关闭
 	}
 	//验证表单
